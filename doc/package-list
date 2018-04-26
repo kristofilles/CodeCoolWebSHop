@@ -1,0 +1,10 @@
+
+com.codecool.shop
+com.codecool.shop.controller
+com.codecool.shop.dao
+com.codecool.shop.dao.implementation.JDBC
+com.codecool.shop.dao.implementation.Mem
+com.codecool.shop.model
+com.codecool.shop.order
+com.codecool.shop.order.orderProcesses
+com.codecool.shop.user

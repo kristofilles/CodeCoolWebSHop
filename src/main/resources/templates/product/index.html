@@ -1,0 +1,103 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>ßa$zatá$ka Đj $zak$hop</title>
+
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+</head>
+
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="nav navbar-nav navbar-left">
+        <form class="form-group pull-left" action="/profile" th:if="${loggedin}">
+            <button class="btn btn-lg btn-info" type="submit" >Profile<h1></h1></button>
+        </form>
+    </div>
+    <div class="nav navbar-nav navbar-right">
+        <a class="btn btn-info pull-right" href="/order/mycart">
+            <img src="/img/cart.png" height="35" width="35"/>
+            <div th:text="${itemQuantity}">Cart size</div>
+        </a>
+        <form class="form-group pull-right" action="/user/login" th:if="${!loggedin}">
+            <button class="btn btn-lg btn-info" type="submit">Login<h1></h1></button>
+        </form>
+        <form class="form-group pull-right" action="/user/register" th:if="${!loggedin}">
+            <button class="btn btn-lg btn-info" type="submit">Register<h1></h1></button>
+        </form>
+        <form class="form-group pull-right" action="/order/logout" th:if="${loggedin}">
+            <button class="btn btn-lg btn-info" type="submit">Logout<h1></h1></button>
+        </form>
+    </div>
+</nav>
+
+<div class="jumbotron text-center">
+    <a href="/"><h1>ßa$zatá$ka Đj $zak$hop</h1></a>
+</div>
+
+
+<div class="container">
+
+    <label for="categories">Product categories</label>
+    <div class="well well-sm" id="categories">
+        <a class="btn btn-info btn" th:each="cat,iterStat : ${categories}"
+           th:href="@{http://localhost:8888/categories/{catId}(catId=${cat.getId()})}" th:text="${cat.getName()}"
+           th:value="${cat.getName()}">Product Categories</a>
+    </div>
+    <label for="suppliers">Performers</label>
+    <div th:if="${path}" class="well well-sm" id="suppliers">
+        <a class="btn btn-info btn-sm" th:each="supplier,iterStat : ${suppliers}"
+           th:href="@{http://localhost:8888/categories/{catId}/suppliers/{suppId}(suppId=${supplier.getId()}, catId=${category.getId()})}"
+           th:text="${supplier.getName()}" th:value="${supplier.getName()}">Suppliers</a>
+    </div>
+
+    <div id="products" class="row list-group">
+
+        <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
+            <div class="thumbnail">
+                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff"
+                     th:attr="src=${prod.getImage()}" alt=""/>
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading" th:text="${prod.getName()}">Product name</h4>
+                    <p class="group inner list-group-item-text" th:text="${prod.getDescription()}">Product
+                        description... </p>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success" th:href="@{~/order/addtocart/} + ${prod.getId()}">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="footer :: copy"></div>
+
+</body>
+</html>

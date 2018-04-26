@@ -1,0 +1,80 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>ßa$zatá$ka Đj $zak$hop</title>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <link rel="stylesheet" type="text/css" href="/css/payment.css"/>
+    <script src="/js/pay.js" defer="true"></script>
+
+    <style>
+
+</style>
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+</head>
+
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="nav navbar-nav navbar-right">
+        <a class="btn btn-info pull-right" href="/order/mycart">
+            <img src="/img/cart.png" height="35" width="35"/>
+            <div th:text="${itemQuantity}">Cart size<h1></h1></div>
+        </a>
+        <form class="form-group pull-right" action="/order/logout">
+            <button class="btn btn-lg btn-info" type="submit">Logout<h1></h1></button>
+        </form>
+    </div>
+</nav>
+
+
+<div class="jumbotron text-center">
+    <a href="/"><h1>ßa$zatá$ka Đj $zak$hop</h1></a>
+</div>
+
+
+
+
+<div class="container">
+    <form action="/order/charge" method="post" id="payment-form">
+        <div class="form-row">
+            <label for="card-element">
+                Credit or debit card
+            </label>
+            <div id="card-element" class="example example1">
+                <!-- a Stripe Element will be inserted here. -->
+            </div>
+
+            <!-- Used to display form errors -->
+            <div id="card-errors" role="alert"></div>
+        </div>
+
+        <input type="submit" class="submit btn btn-md btn-success" value="Submit Payment"></input>
+    </form>
+</div>
+
+<div th:replace="footer :: copy"></div>
+
+</body>
+</html>

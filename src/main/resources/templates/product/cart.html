@@ -1,0 +1,84 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>ßa$zatá$ka Đj $zak$hop</title>
+
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+</head>
+
+<body>
+
+<div class="jumbotron text-center">
+    <a href="/"><h1>ßa$zatá$ka Đj $zak$hop</h1></a>
+</div>
+
+<div class="container">
+    <h2>Cart overview</h2>
+    <div th:if="${orderLineItems.size()==0}"><p>Your cart is empty maan</p></div>
+    <form method="post" action="/order/updatecart">
+        <div class="item col-xs-12 col-lg-12" th:each="lineitem,iterStat : ${orderLineItems}">
+            <div class="thumbnail">
+                <div class="row">
+                    <div class="caption">
+                        <h4 class="col-xs-3 col-md-3 group inner list-group-item-heading text-center"
+                            th:text="${lineitem.getProduct().getName()}">Product name</h4>
+                        <img class="group list-group-image col-xs-3 col-md-3" src="http://placehold.it/400x250/000/fff"
+                             th:attr="src=${lineitem.getProduct().getImage()}" alt=""/>
+                        <div class="col-xs-3 col-md-3">
+                            <p class="lead" th:text="${lineitem.getFullPrice()}">100 USD</p>
+                        </div>
+                        <input type="hidden" th:value="${lineitem.getProductId()}"/>
+                        <div class="col-xs-3 col-md-3">
+                            <input type="number" th:name="'quantity-' + ${lineitem.getProductId()}" min="0" max="10"
+                                   th:attr="value=${lineitem.getQuantity()}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${orderLineItems.size()>0}" class="container">
+            <div class="col-xs-12 col-lg-12 panel panel-default">
+                <div class="panel-body row">
+                    <div class="col-xs-9 col-md-9 text-left">
+                        <h3 class="caption" th:text="'Gross total: ' + ${grossPrice}">Gross
+                            Total</h3>
+                    </div>
+                    <div class="col-xs-3 col-md-3 text-right">
+                        <input text="Update Cart" type="submit" class="btn btn-info text-right" value="Update"
+                               name="action"/>
+                        <input text="Checkout" type="submit" class="btn btn-success text-right" value="Checkout"
+                               name="action"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<p></p>
+<div th:replace="footer :: copy"></div>
+
+</body>
+</html>

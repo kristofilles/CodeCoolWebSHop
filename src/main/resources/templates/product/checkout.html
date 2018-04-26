@@ -1,0 +1,86 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>ßa$zatá$ka Đj $zak$hop</title>
+
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <script src="/js/checkout.js" defer="true"></script>
+    <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+</head>
+
+<body>
+
+<div class="jumbotron text-center">
+    <a href="/"><h1>ßa$zatá$ka Đj $zak$hop</h1></a>
+</div>
+
+<div class="container">
+
+    <div class="row list-group">
+        You may select from your saved details:
+        <p>
+            <select id="shipping">
+                <option selected="selected" value="clear" ></option>
+                <option th:each="shipmap: ${shipping}" th:attr="data-first_name=${shipmap.get('first_name')}, data-last_name=${shipmap.get('last_name')}, data-email=${shipmap.get('email')}, data-zip_code=${shipmap.get('zip_code')}, data-city=${shipmap.get('city')}, data-address=${shipmap.get('address')}"
+                        th:text="${shipmap.get('address')}" value="hurka">Hurka</option>
+            </select>
+        </p>
+        <form action="/order/checkout" method="post" id="form">
+            <div class="form-group">
+                <label for="first_name">First name</label>
+                <input type="text" name="first_name" id="first_name" placeholder="Firstname" class="form-control"
+                       required="required"/>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last name</label>
+                <input type="text" name="last_name" id="last_name" placeholder="Lastname" class="form-control" required="required"/>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" name="email" id="email" placeholder="example@example.com" class="form-control"
+                       required="required"/>
+            </div>
+            <div class="form-group">
+                <label for="zip_code">Zip code</label>
+                <input type="text" name="zip_code" id="zip_code" placeholder="eg.: 1111" class="form-control" required="required"/>
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" name="city" id="city" placeholder="eg.: Vércsorog" class="form-control"
+                       required="required"/>
+            </div>
+            <div class="form-group">
+                <label for="address">Address(street, number)</label>
+                <input type="text" name="address" id="address" placeholder="eg.: Bástya utca, 69." class="form-control"
+                       required="required"/>
+            </div>
+            <a class="btn btn-info" href="/order/mycart">Back to cart</a>
+            <button type="submit" class="btn btn-success">Proceed to payment</button>
+        </form>
+    </div>
+</div>
+
+<div th:replace="footer :: copy"></div>
+
+</body>
+</html>

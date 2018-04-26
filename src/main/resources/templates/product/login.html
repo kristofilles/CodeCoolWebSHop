@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>R3gi$ztr@cz!0$ olĐal t3$$am</title>
+
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+</head>
+<body>
+
+<div th:if="${login}" class="container">
+    <form class="form-signin" action="/user/loggingin" method="post">
+        <div class="jumbotron text-center">
+            <h1 class="form-signin-heading">Please login to your account</h1>
+            <a href="/"><h3>Back to the $hop</h3></a>
+            <div th:if="${incorrect}" class="alert alert-danger">
+                <h2>Username or password is incorrect!</h2>
+            </div>
+        </div>
+        <div class="well well-sm">
+            <input type="text" class="form-control" name="username" placeholder="Username" required="" autofocus=""/>
+            <input type="password" class="form-control" name="password" placeholder="Password" required=""/>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        </div>
+
+    </form>
+</div>
+
+<div th:if="${register}" class="container">
+    <form class="form-signin" action="/user/registering" method="post">
+        <div class="jumbotron text-center">
+            <h1 class="form-signin-heading">Create your account</h1>
+            <a href="/"><h3>Back to the $hop</h3></a>
+            <div th:if="${inuse}" class="alert alert-danger">
+                <h2>Username already in use</h2>
+            </div>
+        </div>
+        <input type="text" class="form-control" name="username" placeholder="Username" required="" autofocus=""/>
+        <input type="password" class="form-control" name="password" placeholder="Password" required=""/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+    </form>
+</div>
+
+
+<div th:replace="footer :: copy"></div>
+</body>
+</html>
